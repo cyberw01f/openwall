@@ -3,6 +3,7 @@ import requests
 import os
 import sys
 import time
+import subprocess
 
 nasa_url = 'https://api.nasa.gov/planetary/apod'
 parameters = {
@@ -10,6 +11,15 @@ parameters = {
     'hd': 'True'
 }
 
+def setWallpaper(wallpaper_file):
+    try:
+        feh = subprocess.call(["feh", "--bg-fill", wallpaper_file])
+    except OSError:
+        pass
+    try:
+        nitrogen = subprocess.call(["nitrogen", "--set-zoom-fill", wallpaper_file])
+    except OSError:
+        pass
 
 def nasaAPOD():
     timestamp = time.time()
@@ -26,6 +36,8 @@ def nasaAPOD():
             response = requests.get(data['hdurl'])
             open(image_file, 'wb').write(response.content)
             print ("Downloaded at location : " + pictures_folder)
+            setWallpaper(image_file)
+            print ("Wallpaper updated")
 
     elif (response.status_code == 429):
         print   ("Download error - You have made too many requests!")
