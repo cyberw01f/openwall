@@ -13,18 +13,28 @@ parameters = {
 
 def user_menu():
     os.system('clear')
-    print("---------------------------------\n"
-            "       Welcome to OpenWall\n"
-            "---------------------------------\n\n"
+    print("-----------------------------------------------\n"
+            "              Welcome to OpenWall\n"
+            "-----------------------------------------------\n\n"
             "Enter the menu number to proceed\n\n"
             "1. Download and set NASA APOD\n"
-            "2. Exit\n\n"
-            "---------------------------------\n\n")
+            "2. Download and set random image from Unsplash\n"
+            "3. Download and set random image from Flickr\n"
+            "4. Set or edit rule for wallpaper rotation\n"
+            "5. Exit\n\n"
+            "-----------------------------------------------\n\n")
     while 1:
         task=input(">> ")
         if task=='1':
             nasa_APOD()
         elif task=='2':
+            print("Sorry, option under development")
+        elif task=='3':
+            print("Sorry, option under development")
+        elif task=='4':
+            print("Sorry, option under development")
+        elif task=='5':
+            os.system('clear')
             print("Thank you for using OpenWall")
             break
         else:
@@ -44,7 +54,7 @@ def set_wallpaper(wallpaper_file):
 def nasa_APOD():
     timestamp = time.time()
     pictures_folder = os.path.join(os.getenv('HOME'),'Pictures')
-    picture_name = 'openwall_' + str(timestamp) + '.jpg'
+    picture_name = 'openwall_' + 'apod_' +str(timestamp) + '.jpg'
     image_file = os.path.join(pictures_folder,picture_name)
 
     r = requests.get(nasa_url,params = parameters)
