@@ -1,7 +1,6 @@
 import json
 import requests
 import os
-import sys
 import time
 import subprocess
 
@@ -11,29 +10,30 @@ parameters = {
     'hd': 'True'
 }
 
+
 def user_menu():
     os.system('clear')
     print("-----------------------------------------------\n"
-            "              Welcome to OpenWall\n"
-            "-----------------------------------------------\n\n"
-            "Enter the menu number to proceed\n\n"
-            "1. Download and set NASA APOD\n"
-            "2. Download and set random image from Unsplash\n"
-            "3. Download and set random image from Flickr\n"
-            "4. Set or edit rule for wallpaper rotation\n"
-            "5. Exit\n\n"
-            "-----------------------------------------------\n\n")
+          "              Welcome to OpenWall\n"
+          "-----------------------------------------------\n\n"
+          "Enter the menu number to proceed\n\n"
+          "1. Download and set NASA APOD\n"
+          "2. Download and set random image from Unsplash\n"
+          "3. Download and set random image from Flickr\n"
+          "4. Set or edit rule for wallpaper rotation\n"
+          "5. Exit\n\n"
+          "-----------------------------------------------\n\n")
     while 1:
-        task=input(">> ")
-        if task=='1':
+        task = input(">> ")
+        if task == '1':
             nasa_APOD()
-        elif task=='2':
+        elif task == '2':
             print("Sorry, option under development")
-        elif task=='3':
+        elif task == '3':
             print("Sorry, option under development")
-        elif task=='4':
+        elif task == '4':
             print("Sorry, option under development")
-        elif task=='5':
+        elif task == '5':
             os.system('clear')
             print("Thank you for using OpenWall")
             break
@@ -43,21 +43,22 @@ def user_menu():
 
 def set_wallpaper(wallpaper_file):
     try:
-        feh = subprocess.call(["feh", "--bg-fill", wallpaper_file])
+        subprocess.call(["feh", "--bg-fill", wallpaper_file])
     except OSError:
         pass
     try:
-        nitrogen = subprocess.call(["nitrogen", "--set-zoom-fill", wallpaper_file])
+        subprocess.call(["nitrogen", "--set-zoom-fill", wallpaper_file])
     except OSError:
         pass
 
+
 def nasa_APOD():
     timestamp = time.time()
-    pictures_folder = os.path.join(os.getenv('HOME'),'Pictures')
-    picture_name = 'openwall_' + 'apod_' +str(timestamp) + '.jpg'
-    image_file = os.path.join(pictures_folder,picture_name)
+    pictures_folder = os.path.join(os.getenv('HOME'), 'Pictures')
+    picture_name = 'openwall_' + 'apod_' + str(timestamp) + '.jpg'
+    image_file = os.path.join(pictures_folder, picture_name)
 
-    r = requests.get(nasa_url,params = parameters)
+    r = requests.get(nasa_url, params=parameters)
 
     if (r.status_code == 200):
         data = json.loads(r.content.decode('utf-8'))
@@ -78,5 +79,6 @@ def nasa_APOD():
         print("Download error - Could not download !")
         print(response.status_code)
         return None
+
 
 user_menu()
