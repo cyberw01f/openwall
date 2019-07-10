@@ -1,0 +1,1 @@
+{"nasa_params": {"nasa_url": "https://api.nasa.gov/planetary/apod", "api_key": "DEMO_KEY", "hd": "True"}, "settings": {"source": "APOD", "last_update": "YYYY-MM-DD", "change_duration": "1440"}}
